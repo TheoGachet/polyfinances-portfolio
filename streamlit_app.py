@@ -343,7 +343,7 @@ if KEY_SHOW_MORE not in st.session_state:
 
 # Titre puis « Voir plus » en dessous du titre
 st.markdown("### Titres (actuels)")
-st.checkbox("Voir plus", key=KEY_SHOW_MORE)
+st.checkbox("Afficher tous les titres", key=KEY_SHOW_MORE)
 
 
 show_more = st.session_state[KEY_SHOW_MORE]
