@@ -341,12 +341,10 @@ KEY_SHOW_MORE = "pf_show_more"
 if KEY_SHOW_MORE not in st.session_state:
     st.session_state[KEY_SHOW_MORE] = False
 
-# En-tête + toggle « Voir plus » aligné à droite
-left, right = st.columns([1, 0.18])
-with left:
-    st.markdown("### Holdings (current)")
-with right:
-    st.checkbox("Voir plus", key=KEY_SHOW_MORE)
+# Titre puis « Voir plus » en dessous du titre
+st.markdown("### Titres (actuels)")
+st.checkbox("Voir plus", key=KEY_SHOW_MORE)
+
 
 show_more = st.session_state[KEY_SHOW_MORE]
 
@@ -390,7 +388,7 @@ html_full = view.to_html(index=False, escape=False, classes="portfolio", table_i
 st.markdown(html_full, unsafe_allow_html=True)
 
 # -------- courbe NAV (Altair) : survol continu affiche la valeur au x courant --------
-st.markdown("### Portfolio value over time")
+st.markdown("### Valeur du portefeuille dans le temps")
 nav_ts = (nav_incl_cash if include_cash_ts else nav_ex_cash)
 if nav_ts.empty:
     st.info("No time series to plot for the selected range.")
