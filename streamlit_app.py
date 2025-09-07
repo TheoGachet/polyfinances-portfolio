@@ -342,8 +342,8 @@ if KEY_SHOW_MORE not in st.session_state:
     st.session_state[KEY_SHOW_MORE] = False
 
 # Titre puis « Voir plus » en dessous du titre
-st.markdown("### Titres")
-st.checkbox("Afficher tous les titres", key=KEY_SHOW_MORE)
+st.markdown("### Holdings")
+st.checkbox("See all", key=KEY_SHOW_MORE)
 
 
 show_more = st.session_state[KEY_SHOW_MORE]
@@ -379,7 +379,7 @@ css = f"""
 }}
 
 /* Masquer les lignes à partir de la 6e en mode aperçu */
-{f"#{TABLE_ID} tbody tr:nth-child(n+4) {{ display: none; }}" if not show_more else ""}
+{f"#{TABLE_ID} tbody tr:nth-child(n+5) {{ display: none; }}" if not show_more else ""}
 </style>
 """
 st.markdown(css, unsafe_allow_html=True)
@@ -388,7 +388,7 @@ html_full = view.to_html(index=False, escape=False, classes="portfolio", table_i
 st.markdown(html_full, unsafe_allow_html=True)
 
 # -------- courbe NAV (Altair) : survol continu affiche la valeur au x courant --------
-st.markdown("### Valeur dans le temps")
+st.markdown("### Portfolio value over time")
 nav_ts = (nav_incl_cash if include_cash_ts else nav_ex_cash)
 if nav_ts.empty:
     st.info("No time series to plot for the selected range.")
@@ -472,7 +472,7 @@ with st.expander("Download data"):
 st.markdown("---")
 st.caption(
     "Survol continu: la règle et la valeur suivent la position x de la souris dans tout le graphique.\n"
-    "Return % (Since buy) = Price/AvgCost - 1. Return % (Window) = EndPrice/StartPrice - 1.\n"
-    "Ordre du tableau = ordre d'origine. Colonnes auto-ajustées; zébrage; « Voir plus » à droite du titre.\n"
-    "La série affichée inclut le cash par défaut."
+    "\nReturn % (Since buy) = Price/AvgCost - 1. Return % (Window) = EndPrice/StartPrice - 1.\n"
+    "\nOrdre du tableau = ordre d'origine. Colonnes auto-ajustées; zébrage; « Voir plus » à droite du titre.\n"
+    "\nLa série affichée inclut le cash par défaut."
 )
