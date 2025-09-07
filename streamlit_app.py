@@ -162,13 +162,23 @@ st.title("Portefeuille Polyfinances")
 st.subheader("Théo Gachet - VP Investissement")
 
 with st.sidebar:
+    
+    # Dans ton bloc `with st.sidebar:` AVANT st.header("Inputs"), ajoute :
+
+    # --- Logo PolyFinances centré en haut de la sidebar ---
+    from pathlib import Path
+
+    # essaie plusieurs extensions d'images courantes
+    for _logo_name in ["polyfinances.png", "polyfinances.jpg", "polyfinances.jpeg", "polyfinances.svg"]:
+        if Path(_logo_name).exists():
+            col_l, col_mid, col_r = st.columns([1, 4, 1])
+            with col_mid:
+                st.image(_logo_name, use_container_width=True)
+            break
+    # ------------------------------------------------------
+
     st.header("Inputs")
 
-    uploaded = st.file_uploader(
-        "Upload CSV (columns: ticker, quantity, [avg_cost])",
-        type=["csv"],
-        accept_multiple_files=False,
-    )
 
     cash_balance = st.number_input(
         "Cash balance (CAD)",
@@ -213,16 +223,9 @@ with st.sidebar:
     )
 
 # -------- positions + ordre --------
-if uploaded is not None:
-    try:
-        raw = pd.read_csv(uploaded)
-        positions = _normalize_positions_keep_order(raw)
-    except Exception as e:
-        st.error(f"Failed to parse CSV: {e}")
-        st.stop()
-else:
-    positions = pd.DataFrame(DEFAULT_POSITIONS)
-    positions["order"] = np.arange(len(positions), dtype=int)
+
+positions = pd.DataFrame(DEFAULT_POSITIONS)
+positions["order"] = np.arange(len(positions), dtype=int)
 
 if positions.empty:
     st.warning("No positions to display.")
