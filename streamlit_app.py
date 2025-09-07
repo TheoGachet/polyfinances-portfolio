@@ -341,9 +341,14 @@ KEY_SHOW_MORE = "pf_show_more"
 if KEY_SHOW_MORE not in st.session_state:
     st.session_state[KEY_SHOW_MORE] = False
 
-# Titre puis « Voir plus » en dessous du titre
-st.markdown("### Holdings")
-st.checkbox("See all", key=KEY_SHOW_MORE)
+# Titre « Holdings (current) » + bouton « Voir plus » aligné, un peu à droite
+c_title, c_btn, c_spacer = st.columns([0.25, 0.14, 0.61])  # ajuste ces ratios si besoin
+with c_title:
+    st.markdown("### Holdings (current)")
+with c_btn:
+    # petit offset vertical pour aligner avec la baseline du H3
+    st.markdown("<div style='height:6px'></div>", unsafe_allow_html=True)
+    st.checkbox("See all", key=KEY_SHOW_MORE)
 
 
 show_more = st.session_state[KEY_SHOW_MORE]
