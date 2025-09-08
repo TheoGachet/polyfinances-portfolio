@@ -159,7 +159,7 @@ def fmt_cur(x: float) -> str:
 
 st.set_page_config(page_title="Portefeuille Polyfinances", layout="wide")
 st.title("Portefeuille Polyfinances")
-st.subheader("Théo Gachet - VP Investissement")
+st.subheader("Pôle Investissement")
 
 with st.sidebar:
     
